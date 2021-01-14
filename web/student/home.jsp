@@ -1,4 +1,4 @@
-<%@include file="isLoggedIn.jsp" %>  
+<%@include file="../isLoggedIn.jsp" %>  
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
