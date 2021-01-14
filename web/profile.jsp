@@ -39,7 +39,7 @@ try {
                 <input id="submitBtn" type="submit" value="Edit" />
             </form>
                 <%
-                    if (res.getInt("role") == 0) {
+                    if (session.getAttribute("role").equals("0")) {
                         %><a href="student/home.jsp">Back to home</a><%
                     } else {
                         %><a href="instructor/home.jsp">Back to home</a><%
