@@ -8,10 +8,10 @@
     <body>
         <form action="signup" method="POST">
             <label for="username">Username: </label>
-            <input id="username" name="username" /><label id="usernameError"></label>
+            <input id="username" name="username" minlength="3" maxlength="20" required /><label id="usernameError"></label>
             <br>
             <label for="email">Email:  </label>
-            <input id="email" name="email" type="email" /><label id="emailError"></label>
+            <input id="email" name="email" type="email" required /><label id="emailError"></label>
             <br>
             <label>Role:  </label>
             <select name="role">
@@ -22,9 +22,9 @@
             <br>
             <input id="submitBtn" type="submit" value="Sign up" />
         </form>
-        <a href="index.html">Or sign in</a>
+        <a href="index.jsp">Or sign in</a>
     </body>
-    <script src="javascript/custom.js"></script>
+    <script src="javascript/custom.js"></script> <!-- Possible error -->
     <script>
         signup();
     </script>

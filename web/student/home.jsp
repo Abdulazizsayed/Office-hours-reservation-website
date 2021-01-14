@@ -4,13 +4,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="../css/style.css">
         <title>Reservation - Home</title>
     </head>
     <body>
         <div class="container">
-                <a class="profile" href="profile.jsp">Profile</a>
-                <a class="logout" href="logout.jsp">Logout</a>
+                <a class="profile" href="../profile.jsp">Profile</a>
+                <a class="logout" href="../logout">Logout</a>
             <center>
                 <div class="home-links">
                     <a href="#">Test</a>
