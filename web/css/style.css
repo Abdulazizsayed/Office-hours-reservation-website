@@ -1,0 +1,50 @@
+body {
+    background-color: #DDD;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    
+}
+
+a {
+    text-decoration: none;
+    font-size: 20px;
+}
+
+/* Home page */
+
+.logout, .profile{
+    position: absolute;
+    color: #000;
+    top: 10px;
+}
+
+.logout {
+    right: 10px;
+}
+
+.profile {
+    left: 10px;
+}
+
+.container .home-links {
+    border: 3px solid #333;
+    border-radius: 10px;
+    padding: 20px 50px;
+}
+
+.container .home-links a {
+    background-color: #AAA;
+    color: #000;
+    padding: 15px 70px;
+    display: block;
+    margin-top: 10px;
+}
+
+.container .home-links a:hover {
+    background-color: #AAB;
+}

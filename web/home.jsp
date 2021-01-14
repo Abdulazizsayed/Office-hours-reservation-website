@@ -4,9 +4,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="css/style.css">
         <title>Reservation - Home</title>
     </head>
     <body>
-        <a href="logout">Logout</a>
+        <div class="container">
+                <a class="profile" href="profile.jsp">Profile</a>
+                <a class="logout" href="logout.jsp">Logout</a>
+            <center>
+                <div class="home-links">
+                    <a href="#">Test</a>
+                    <a href="#">Test</a>
+                    <a href="#">Test</a>
+                    <a href="#">Test</a>
+                    <a href="#">Test</a>
+                </div>
+            </center>
+        </div>
     </body>
 </html>
