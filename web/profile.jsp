@@ -2,7 +2,7 @@
 <%@page import="com.database.Queries"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="com.database.DatabaseConnection"%>
-<%@include file="isLoggedIn.jsp" %>  
+<%@include file="includes/isLoggedIn.jsp" %>  
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
 try {

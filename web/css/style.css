@@ -2,6 +2,20 @@ body {
     background-color: #DDD;
     position: relative;
     box-sizing: border-box;
+    font-family: Montserrat, sans-serif;
+}
+
+ol {
+  list-style: none;
+  counter-reset: my-awesome-counter;
+}
+ol li {
+  counter-increment: my-awesome-counter;
+}
+ol li::before {
+  content: counter(my-awesome-counter) ". ";
+  color: red;
+  font-weight: bold;
 }
 
 .container {

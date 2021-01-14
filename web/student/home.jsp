@@ -1,4 +1,4 @@
-<%@include file="../isLoggedIn.jsp" %>  
+<%@include file="../includes/isLoggedIn.jsp" %>  
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,7 +13,8 @@
                 <a class="logout" href="../logout">Logout</a>
             <center>
                 <div class="home-links">
-                    <a href="#">Test</a>
+                    <h1>Hello <%=session.getAttribute("name")%></h1>
+                    <a href="../subjects.jsp">My subjects</a>
                     <a href="#">Test</a>
                     <a href="#">Test</a>
                     <a href="#">Test</a>
