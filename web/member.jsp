@@ -2,7 +2,7 @@
 <%@page import="com.database.Queries"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="com.database.DatabaseConnection"%>
-<%@include file="includes/isLoggedIn.jsp" %>  
+<%@include file="isLoggedIn.jsp" %>  
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
 try {
@@ -23,7 +23,7 @@ try {
         Queries q2 = new Queries(con, "office_hours");
         office_hours = q2.select("*", "instructor_id = " + id);
     } else {
-        response.sendRedirect("includes/failure.jsp?page=index.jsp&reason=User-didn't-found");
+        response.sendRedirect("failure.jsp?page=index.jsp&reason=User-didn't-found");
     }
 %>
 <!DOCTYPE html>
@@ -93,14 +93,7 @@ try {
             <input id="to-name" name="toName" value="<%=user.getString("username")%>" hidden/>
             <button id="submitBtn">Send</button><br>
                 
-            
-            <%
-                if (session.getAttribute("role").equals("0")) {
-                    %><a href="student/home.jsp">Back to home</a><%
-                } else {
-                    %><a href="instructor/home.jsp">Back to home</a><%
-                }
-            %>
+            <a href="home.jsp">Back to home</a>
             
         </div>
     </body>

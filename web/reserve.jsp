@@ -2,7 +2,7 @@
 <%@page import="com.database.Queries"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="com.database.DatabaseConnection"%>
-<%@include file="includes/isLoggedIn.jsp" %>  
+<%@include file="isLoggedIn.jsp" %>  
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
 try {
@@ -13,7 +13,7 @@ try {
 
     if (!res.next()) {
         
-        response.sendRedirect("includes/failure.jsp?page=index.jsp&reason=Id-not-found,-you'll-be-redirected-to-home");
+        response.sendRedirect("failure.jsp?page=index.jsp&reason=Id-not-found,-you'll-be-redirected-to-home");
     }
     
     %>
@@ -33,13 +33,7 @@ try {
                 <input name="id" value="<%=res.getString("id")%>" hidden/>
                 <input id="submitBtn" type="submit" value="Confirm reservation" />
             </form>
-                <%
-                    if (session.getAttribute("role").equals("0")) {
-                        %><a href="student/home.jsp">Back to home</a><%
-                    } else {
-                        %><a href="instructor/home.jsp">Back to home</a><%
-                    }
-                %>
+                <a href="home.jsp">Back to home</a>
         </div>
     </body>
 </html>

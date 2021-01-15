@@ -2,7 +2,7 @@
 <%@page import="com.database.Queries"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="com.database.DatabaseConnection"%>
-<%@include file="includes/isLoggedIn.jsp" %>  
+<%@include file="isLoggedIn.jsp" %>  
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
 try {
@@ -33,13 +33,7 @@ try {
                     }
                 %>
             </ol>
-                <%
-                    if (res.getInt("role") == 0) {
-                        %><a href="student/home.jsp">Back to home</a><%
-                    } else {
-                        %><a href="instructor/home.jsp">Back to home</a><%
-                    }
-                %>
+            <a href="home.jsp">Back to home</a>
         </div>
     </body>
 </html>

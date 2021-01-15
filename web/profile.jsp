@@ -2,7 +2,7 @@
 <%@page import="com.database.Queries"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="com.database.DatabaseConnection"%>
-<%@include file="includes/isLoggedIn.jsp" %>  
+<%@include file="isLoggedIn.jsp" %>  
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
 try {
@@ -12,7 +12,7 @@ try {
     ResultSet res = q.select("*", "id = " + session.getAttribute("id"));
 
     if (!res.next()) {
-        response.sendRedirect("includes/failure.jsp?page=logout.jsp&reason=Error-in-the-system,-please-login-again");
+        response.sendRedirect("failure.jsp?page=logout.jsp&reason=Error-in-the-system,-please-login-again");
     }
     
     %>
@@ -29,7 +29,13 @@ try {
             <h2 class="title">Your profile</h2>
             <form class="edit-user-form" action="editUser" method="POST">
                 <label>Name: </label><br>
-                <input name="name" value="<%=res.getString("name")%>" minlength="3" maxlength="50" required /><br>
+                <%
+                    String name = "";
+                    if (res.getString("name") != null) {
+                        name = res.getString("name");
+                    }
+                %>
+                <input name="name" value="<%=name%>" minlength="3" maxlength="50" required /><br>
                 <label>Username: </label><br>
                 <input value="<%=res.getString("username")%>" disabled/>
                 <input name="username" value="<%=res.getString("username")%>" hidden/><br>
@@ -39,13 +45,7 @@ try {
                 <input id="email" name="email" type="email" value="<%=res.getString("email")%>" required/><br>
                 <input id="submitBtn" type="submit" value="Edit" />
             </form>
-                <%
-                    if (session.getAttribute("role").equals("0")) {
-                        %><a href="student/home.jsp">Back to home</a><%
-                    } else {
-                        %><a href="instructor/home.jsp">Back to home</a><%
-                    }
-                %>
+                <a href="home.jsp">Back to home</a>
         </div>
     </body>
 </html>

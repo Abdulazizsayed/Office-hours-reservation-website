@@ -51,13 +51,9 @@ public class validate extends HttpServlet {
                     session.setAttribute("name", res.getString("name"));
                     session.setAttribute("username", res.getString("username"));
                     session.setAttribute("role", res.getString("role"));
-                    if (res.getInt("role") == 0) {
-                        response.sendRedirect("includes/success.jsp?page=../index.jsp&content=You-logged-in-successfuly!"); 
-                    } else {
-                        response.sendRedirect("includes/success.jsp?page=../index.jsp&content=You-logged-in-successfuly!");
-                    }
+                    response.sendRedirect("success.jsp?page=index.jsp&content=You-logged-in-successfuly!");
                 } else {
-                    response.sendRedirect("includes/failure.jsp?page=../index.jsp&reason=Invalid-username-or-password");
+                    response.sendRedirect("failure.jsp?page=index.jsp&reason=Invalid-username-or-password");
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();

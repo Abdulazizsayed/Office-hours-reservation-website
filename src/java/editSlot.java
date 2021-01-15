@@ -6,7 +6,6 @@
 
 import com.database.DatabaseConnection;
 import com.database.Queries;
-import com.mail.JavaMailUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -22,8 +21,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author DELL
  */
-@WebServlet(urlPatterns = {"/cancelReservation"})
-public class cancelReservation extends HttpServlet {
+@WebServlet(urlPatterns = {"/editSlot"})
+public class editSlot extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,22 +40,17 @@ public class cancelReservation extends HttpServlet {
             try {
                 DatabaseConnection dbConnection = new DatabaseConnection();
                 Connection con = dbConnection.connect();
-                String res_id = request.getParameter("id");
-                String to_id = request.getParameter("toId");
-                String to_email = request.getParameter("toEmail");
-                Queries q = new Queries(con, "reservations");
-                int rows = q.delete("id=" + res_id);
-
-                if (rows > 0) {
-                    HttpSession session = request.getSession(false);
-                    Queries q1 = new Queries(con, "notifications");
-                    int rows1 = q1.insert("`from`, `to`, content, link", session.getAttribute("id") + ", " + to_id + ", '" + session.getAttribute("username") + " cancelled a meeting with you', 'reservations.jsp'");
-                    if (rows1 > 0) {
-                        JavaMailUtil.sendMail(to_email, "Meeting cancelled", session.getAttribute("username") + "Cancelled a meeting with you");
-                        response.sendRedirect("success.jsp?page=index.jsp&content=You-cancelled-the-meeting-successfuly");
-                    }
+                String from = request.getParameter("from");
+                String to = request.getParameter("to");
+                String day = request.getParameter("day");
+                String id = request.getParameter("id");
+                if (from.equals("") || to.equals("") || day.equals("") || id.equals("")) {
+                    response.sendRedirect("failure.jsp?page=profile.jsp&reason=You-didn't-values-are-empty");
                 } else {
-                    response.sendRedirect("failure.jsp?page=index.jsp&reason=Error-in-the-system");
+                    Queries q = new Queries(con, "office_hours");
+                    q.update("`from` = '" + from + "', `to` = '" + to + "', day = '" + day + "'", "id = " + id);
+                    out.print("hello");
+                    response.sendRedirect("success.jsp?page=officeHours.jsp&content=You-edited-the-slot-successfuly");
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();

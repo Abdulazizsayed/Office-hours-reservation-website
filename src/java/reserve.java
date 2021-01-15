@@ -52,7 +52,7 @@ public class reserve extends HttpServlet {
                 String date = request.getParameter("date"); 
                 
                 if (id.equals("") || date.equals("")) {
-                    response.sendRedirect("includes/failure.jsp?page=index.jsp&reason=Id-or-date-is-empty");
+                    response.sendRedirect("failure.jsp?page=index.jsp&reason=Id-or-date-is-empty");
                 } else {
                     Date date1 = Calendar.getInstance().getTime();  
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
@@ -64,13 +64,13 @@ public class reserve extends HttpServlet {
                     LocalDate inputDate = LocalDate.parse(date); 
 
                     if (inputDate.getYear() < currentDate.getYear()) {
-                        response.sendRedirect("includes/failure.jsp?page=../index.jsp&reason=Date-is-in-past");
+                        response.sendRedirect("failure.jsp?page=index.jsp&reason=Date-is-in-past");
 
                     } else if (inputDate.getYear() == currentDate.getYear() && inputDate.getMonthValue() < currentDate.getMonthValue()) {
-                        response.sendRedirect("includes/failure.jsp?page=../index.jsp&reason=Date-is-in-past");
+                        response.sendRedirect("failure.jsp?page=index.jsp&reason=Date-is-in-past");
 
                     } else if (inputDate.getYear() == currentDate.getYear() && inputDate.getMonthValue() == currentDate.getMonthValue() && inputDate.getDayOfMonth() < currentDate.getDayOfMonth()) {
-                        response.sendRedirect("includes/failure.jsp?page=../index.jsp&reason=Date-is-in-past");
+                        response.sendRedirect("failure.jsp?page=index.jsp&reason=Date-is-in-past");
 
                     } else {
                         Date converted = new SimpleDateFormat("yyyy-MM-dd").parse(date);  
@@ -83,14 +83,14 @@ public class reserve extends HttpServlet {
 
                         if (res.next()) {
                             if (res.getInt("day") != cal.get(Calendar.DAY_OF_WEEK)) {
-                                response.sendRedirect("includes/failure.jsp?page=../index.jsp&reason=Day-not-matching-office-hour-day");
+                                response.sendRedirect("failure.jsp?page=index.jsp&reason=Day-not-matching-office-hour-day");
 
                             } else {
                                 Queries q1 = new Queries(con, "reservations");
                                 ResultSet res1 = q1.select("*", "office_hour_id=" + id + " AND `date`='" + date + "'");
 
                                 if (res1.next()) {
-                                    response.sendRedirect("includes/failure.jsp?page=../index.jsp&reason=This-slot-with-date-entered-already-reserved-before");
+                                    response.sendRedirect("failure.jsp?page=index.jsp&reason=This-slot-with-date-entered-already-reserved-before");
 
                                 } else {
                                     HttpSession session = request.getSession(false);
@@ -102,17 +102,17 @@ public class reserve extends HttpServlet {
                                         ResultSet email = userQ.select("email", "id="+res.getString("instructor_id"));
                                         if (rows2 > 0 && email.next()) {
                                             JavaMailUtil.sendMail(email.getString("email"), "A student reserved an appointment with you with the following date: " + date, session.getAttribute("username") + " reserved an appointment with you");
-                                            response.sendRedirect("includes/success.jsp?page=../index.jsp&content=You-reserved-the-slot-successfuly");
+                                            response.sendRedirect("success.jsp?page=index.jsp&content=You-reserved-the-slot-successfuly");
                                         } else {
-                                            response.sendRedirect("includes/failure.jsp?page=../index.jsp&reason=Error-in-the-system");
+                                            response.sendRedirect("failure.jsp?page=index.jsp&reason=Error-in-the-system");
                                         }
                                     } else {
-                                        response.sendRedirect("includes/failure.jsp?page=../index.jsp&reason=Error-in-the-system");
+                                        response.sendRedirect("failure.jsp?page=index.jsp&reason=Error-in-the-system");
                                     }
                                 }
                             }
                         } else {
-                            response.sendRedirect("includes/failure.jsp?page=../index.jsp&reason=Office-hour-id-is'nt-valid");
+                            response.sendRedirect("failure.jsp?page=index.jsp&reason=Office-hour-id-is'nt-valid");
                         }
                     }
                 }

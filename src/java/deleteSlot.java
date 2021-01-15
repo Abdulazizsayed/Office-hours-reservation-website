@@ -10,7 +10,6 @@ import com.mail.JavaMailUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,8 +21,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author DELL
  */
-@WebServlet(urlPatterns = {"/cancelReservation"})
-public class cancelReservation extends HttpServlet {
+@WebServlet(urlPatterns = {"/deleteSlot"})
+public class deleteSlot extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,22 +40,15 @@ public class cancelReservation extends HttpServlet {
             try {
                 DatabaseConnection dbConnection = new DatabaseConnection();
                 Connection con = dbConnection.connect();
-                String res_id = request.getParameter("id");
-                String to_id = request.getParameter("toId");
-                String to_email = request.getParameter("toEmail");
-                Queries q = new Queries(con, "reservations");
-                int rows = q.delete("id=" + res_id);
+                String id = request.getParameter("id");
+                
+                Queries q = new Queries(con, "office_hours");
+                int rows = q.delete("id=" + id);
 
                 if (rows > 0) {
-                    HttpSession session = request.getSession(false);
-                    Queries q1 = new Queries(con, "notifications");
-                    int rows1 = q1.insert("`from`, `to`, content, link", session.getAttribute("id") + ", " + to_id + ", '" + session.getAttribute("username") + " cancelled a meeting with you', 'reservations.jsp'");
-                    if (rows1 > 0) {
-                        JavaMailUtil.sendMail(to_email, "Meeting cancelled", session.getAttribute("username") + "Cancelled a meeting with you");
-                        response.sendRedirect("success.jsp?page=index.jsp&content=You-cancelled-the-meeting-successfuly");
-                    }
+                    response.sendRedirect("success.jsp?page=officeHours.jsp&content=You-deleted-the-slot-successfuly");
                 } else {
-                    response.sendRedirect("failure.jsp?page=index.jsp&reason=Error-in-the-system");
+                    response.sendRedirect("failure.jsp?page=officeHours.jsp&reason=Error-in-the-system");
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();

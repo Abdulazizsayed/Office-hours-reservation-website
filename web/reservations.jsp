@@ -2,7 +2,7 @@
 <%@page import="com.database.Queries"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="com.database.DatabaseConnection"%>
-<%@include file="includes/isLoggedIn.jsp" %>  
+<%@include file="isLoggedIn.jsp" %>  
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
 try {
@@ -36,7 +36,12 @@ try {
                 </tr>
                 <%
                     while (res.next()) {
-                        String toId = res.getString("instructor_id");
+                        String toId = "";
+                        if (!session.getAttribute("role").equals("0")) {
+                            toId = res.getString("student_id");
+                        } else {
+                            toId = res.getString("instructor_id");
+                        }
                         
                         Queries q1 = new Queries(con, "users");
                         ResultSet user = q1.select("email", "id=" + toId);
@@ -55,13 +60,7 @@ try {
                 </tr>
                 <%}%>
             </table>
-                <%
-                    if (session.getAttribute("role").equals("0")) {
-                        %><a href="student/home.jsp">Back to home</a><%
-                    } else {
-                        %><a href="instructor/home.jsp">Back to home</a><%
-                    }
-                %>
+            <a href="home.jsp">Back to home</a>
         </div>
     </body>
 </html>

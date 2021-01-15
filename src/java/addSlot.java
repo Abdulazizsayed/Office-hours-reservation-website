@@ -4,26 +4,20 @@
  * and open the template in the editor.
  */
 
-import com.database.DatabaseConnection;
-import com.database.Queries;
-import com.mail.JavaMailUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author DELL
  */
-@WebServlet(urlPatterns = {"/cancelReservation"})
-public class cancelReservation extends HttpServlet {
+@WebServlet(urlPatterns = {"/addSlot"})
+public class addSlot extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,29 +32,16 @@ public class cancelReservation extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            try {
-                DatabaseConnection dbConnection = new DatabaseConnection();
-                Connection con = dbConnection.connect();
-                String res_id = request.getParameter("id");
-                String to_id = request.getParameter("toId");
-                String to_email = request.getParameter("toEmail");
-                Queries q = new Queries(con, "reservations");
-                int rows = q.delete("id=" + res_id);
-
-                if (rows > 0) {
-                    HttpSession session = request.getSession(false);
-                    Queries q1 = new Queries(con, "notifications");
-                    int rows1 = q1.insert("`from`, `to`, content, link", session.getAttribute("id") + ", " + to_id + ", '" + session.getAttribute("username") + " cancelled a meeting with you', 'reservations.jsp'");
-                    if (rows1 > 0) {
-                        JavaMailUtil.sendMail(to_email, "Meeting cancelled", session.getAttribute("username") + "Cancelled a meeting with you");
-                        response.sendRedirect("success.jsp?page=index.jsp&content=You-cancelled-the-meeting-successfuly");
-                    }
-                } else {
-                    response.sendRedirect("failure.jsp?page=index.jsp&reason=Error-in-the-system");
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet addSlot</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet addSlot at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
