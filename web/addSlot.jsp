@@ -33,8 +33,8 @@
                     <option value="7">Saturday</option>
                 </select>
                 <br>
-                <input id="submitBtn" type="submit" value="Edit" />
-            </form>
+                <input id="submitBtn" type="submit" value="Add" />
+            </form><br>
             <a href="home.jsp">Back to home</a>
         </div>
     </body>

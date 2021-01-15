@@ -23,6 +23,12 @@
                     %>
                     <a href="#">Test</a>
                     <a href="#">Test</a>
+                    <form action="searchUser.jsp" method="POST">
+                        <label for="username">Enter username: </label>
+                        <input id="username" name="username" minlength="3" maxlength="20" required />
+                        <br>
+                        <button id="submitBtn" type="submit">Search</button>
+                    </form>
                 </div>
             </center>
         </div>

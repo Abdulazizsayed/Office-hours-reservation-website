@@ -4,8 +4,11 @@
  * and open the template in the editor.
  */
 
+import com.database.DatabaseConnection;
+import com.database.Queries;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,16 +35,23 @@ public class addSlot extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet addSlot</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet addSlot at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            try {
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                Connection con = dbConnection.connect();
+                String from = request.getParameter("from");
+                String to = request.getParameter("to");
+                String day = request.getParameter("day");
+                String id = request.getParameter("id");
+                if (from.equals("") || to.equals("") || day.equals("") || id.equals("")) {
+                    response.sendRedirect("failure.jsp?page=profile.jsp&reason=You-didn't-values-are-empty");
+                } else {
+                    Queries q = new Queries(con, "office_hours");
+                    q.insert("`from`, `to`, day, instructor_id", "'" + from + "', '" + to + "', " + day + ", " + id);
+                    response.sendRedirect("success.jsp?page=officeHours.jsp&content=You-added-new-slot-successfuly");
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
