@@ -13,9 +13,9 @@
                 <a class="logout" href="../logout">Logout</a>
             <center>
                 <div class="home-links">
-                    <h1>Hello <%=session.getAttribute("name")%></h1>
+                    <h1>Hello <%=session.getAttribute("username")%></h1>
                     <a href="../subjects.jsp">My subjects</a>
-                    <a href="#">Test</a>
+                    <a href="../reservations.jsp">My Reservations</a>
                     <a href="#">Test</a>
                     <a href="#">Test</a>
                     <a href="#">Test</a>

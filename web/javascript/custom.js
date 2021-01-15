@@ -21,6 +21,25 @@ function sendMessageToSubject (to, toName, content, label) {
     });
 }
 
+function sendMessageToUser (to, toName, content, label) {
+    submitBtn.addEventListener("click", function(){
+        let xml = new XMLHttpRequest();
+        xml.open("GET", "sendMessageToUser?content=" + content.value + "&to=" + to + "&toName=" + toName, true);
+        xml.send();
+        xml.onreadystatechange = function () {
+            if (xml.readyState == 4 && xml.status == 200) {
+                let res = xml.responseText.toString();
+                if (res.trim()) {
+                    label.innerHTML = "Sent";
+                } else {
+                    label.innerHTML = "Message not sent! try again";
+                }
+                return false;
+            }
+        };
+    });
+}
+
 function login () {
     usernameEl.onblur = function () {
         let errorLabel = document.getElementById("usernameError");

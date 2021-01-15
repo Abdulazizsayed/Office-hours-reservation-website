@@ -9,7 +9,6 @@ import com.database.Queries;
 import com.mail.JavaMailUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
@@ -23,8 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author DELL
  */
-@WebServlet(urlPatterns = {"/sendMessageToSubject"})
-public class sendMessageToSubject extends HttpServlet {
+@WebServlet(urlPatterns = {"/sendMessageToUser"})
+public class sendMessageToUser extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,21 +46,12 @@ public class sendMessageToSubject extends HttpServlet {
                 String content = request.getParameter("content");
                 HttpSession session = request.getSession(false);
                 
-                Queries q = new Queries(con, "subject_messages");
+                Queries q = new Queries(con, "messages");
                 int rows = q.insert("`from`, `to`, content", session.getAttribute("id") + ", " + to + ", '" + content + "'");
                 
                 if (rows > 0) {
-                    Queries q1 = new Queries(con, "user_subject");
-                    ResultSet res = q1.selectWithMultipleTables("user_subject.*, users.*", "subject_id = " + to + " AND user_id = users.id AND user_id != " + session.getAttribute("id") + " AND users.role != '0'", "users");
-                    
-                    while (res.next()) {
-                        Queries q2 = new Queries(con, "notifications");
-                        int rows2 = q2.insert("`from`, `to`, content, link", session.getAttribute("id") + ", " + res.getString("user_id") + ", '" + session.getAttribute("username") + " sent a message to the subject " + toName + "', 'subject.jsp?id=" + to + "&name=" + toName + "'");
-                        if (rows2 > 0) {
-                            JavaMailUtil.sendMail(res.getString("email"), "Message sent to your subject " + toName, content);
-                        }
-                    }
-                    
+                    Queries q1 = new Queries(con, "notifications");
+                    int rows2 = q1.insert("`from`, `to`, content, link", session.getAttribute("id") + ", " + to + ", '" + session.getAttribute("username") + " sent a message to you', 'member.jsp?id=" + to + "'");
                     out.print(" dummy ");
                 } else {
                     out.print("");

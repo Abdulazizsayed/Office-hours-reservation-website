@@ -26,7 +26,7 @@ try {
                     if (res.next()) {
                         out.println("<li><a href='subject.jsp?id=" + res.getString("id") + "&name=" + res.getString("name") + "'>" + res.getString("name") + "</a></li>");
                         while (res.next()) {
-                            out.println("<li><a href=subject.jsp?id='" + res.getString("id") + "'>" + res.getString("name") + "</a></li>");
+                            out.println("<li><a href='subject.jsp?id=" + res.getString("id") + "&name=" + res.getString("name") + "'>" + res.getString("name") + "</a></li>");
                         }
                     } else {
                         out.println("<b>You have no subjects</b>");

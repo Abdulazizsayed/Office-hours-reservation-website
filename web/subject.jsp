@@ -33,13 +33,13 @@ try {
                 <%
                     if (staff.next()) {
                         if (!staff.getString("id").equals(session.getAttribute("id"))) {
-                            out.println("<li><a href='staffMember.jsp?id=" + staff.getString("users.id") + "'>" + staff.getString("users.name") + "</a></li>");
+                            out.println("<li><a href='member.jsp?id=" + staff.getString("users.id") + "'>" + staff.getString("users.username") + "</a></li>");
                         }
                         while(staff.next()) {
                             if (staff.getString("id").equals(session.getAttribute("id"))) {
                                 continue;
                             }
-                            out.println("<li><a href='staffMember.jsp?id=" + staff.getString("users.id") + "'>" + staff.getString("users.name") + "</a></li>");
+                            out.println("<li><a href='member.jsp?id=" + staff.getString("users.id") + "'>" + staff.getString("users.username") + "</a></li>");
                         }
                     } else {
                         out.println("<b>This subject have no staff members yet</b>");
@@ -51,13 +51,13 @@ try {
                 <%
                     if (students.next()) {
                         if (!students.getString("id").equals(session.getAttribute("id"))) {
-                            out.println("<li><a href='student.jsp?id=" + students.getString("users.id") + "'>" + students.getString("users.name") + "</a></li>");
+                            out.println("<li><a href='member.jsp?id=" + students.getString("users.id") + "'>" + students.getString("users.username") + "</a></li>");
                         }
                         while(students.next()) {
                             if (students.getString("id").equals(session.getAttribute("id"))) {
                                 continue;
                             }
-                            out.println("<li><a href='student.jsp?id=" + students.getString("users.id") + "'>" + students.getString("users.name") + "</a></li>");
+                            out.println("<li><a href='member.jsp?id=" + students.getString("users.id") + "'>" + students.getString("users.username") + "</a></li>");
                         }
                     } else {
                         out.println("<b>This subject have no students yet</b>");
@@ -66,18 +66,30 @@ try {
             </ol>
             <h3 class="side-title">Messages</h3>
                 <%
-                    if (messages.next()) {
-                        if (!messages.getString("id").equals(session.getAttribute("id"))) {
-                            out.println(messages.getString("users.name") + ": " + messages.getString("subject_messages.content") + "<br>");
-                        }
-                        while(messages.next()) {
-                            if (messages.getString("id").equals(session.getAttribute("id"))) {
-                                continue;
+                    if (session.getAttribute("role").equals("0")) {
+                        if (messages.next()) {
+                            if ((!messages.getString("role").equals("0") || messages.getString("users.id").equals(session.getAttribute("id")))) {
+                                out.println(messages.getString("users.username") + ": " + messages.getString("subject_messages.content") + "<br>");
                             }
-                            out.println(messages.getString("users.name") + ": " + messages.getString("subject_messages.content") + "<br>");
+                            while(messages.next()) {
+                                if ((!messages.getString("role").equals("0") || messages.getString("users.id").equals(session.getAttribute("id")))) {
+                                    out.println(messages.getString("users.username") + ": " + messages.getString("subject_messages.content") + "<br>");
+                                }
+                            }
+                        } else {
+                            out.println("<b>This subject have no messages yet</b><br>");
                         }
                     } else {
-                        out.println("<b>This subject have no messages yet</b><br>");
+                        if (messages.next()) {
+                            
+                            out.println(messages.getString("users.username") + ": " + messages.getString("subject_messages.content") + "<br>");
+                            
+                            while(messages.next()) {
+                                out.println(messages.getString("users.username") + ": " + messages.getString("subject_messages.content") + "<br>");
+                            }
+                        } else {
+                            out.println("<b>This subject have no messages yet</b><br>");
+                        }
                     }
                 %>
                 
@@ -107,10 +119,10 @@ try {
         sendMessageToSubject(to, toName, content, label);
     </script>
 </html>
-    <%
+<%
 
-    } catch (Exception ex) {
-        ex.printStackTrace();
-    }
-    %>
+} catch (Exception ex) {
+    ex.printStackTrace();
+}
+%>
 

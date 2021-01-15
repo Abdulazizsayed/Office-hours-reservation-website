@@ -12,7 +12,7 @@ try {
     ResultSet res = q.select("*", "id = " + session.getAttribute("id"));
 
     if (!res.next()) {
-        response.sendRedirect("failure.jsp?page=logout.jsp&reason=Error-in-the-system,-please-login-again");
+        response.sendRedirect("includes/failure.jsp?page=logout.jsp&reason=Error-in-the-system,-please-login-again");
     }
     
     %>
@@ -21,6 +21,7 @@ try {
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/profilecss.css">
         <title>Reservation - Profile</title>
     </head>
     <body>
