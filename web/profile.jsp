@@ -20,8 +20,7 @@ try {
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/profilecss.css">
+            <link href="css/profilecss.css" rel="stylesheet">
         <title>Reservation - Profile</title>
     </head>
     <body>

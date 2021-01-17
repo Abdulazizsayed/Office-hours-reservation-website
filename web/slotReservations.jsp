@@ -11,7 +11,7 @@ try {
     Queries q = new Queries(con, "reservations");
     ResultSet res = null;
     
-    res = q.selectWithMultipleTables("reservations.*, office_hours.*", "office_hour_id = office_hours.id AND (instructor_id = " + session.getAttribute("id") + " OR student_id=" + session.getAttribute("id") + ")", "office_hours");
+    res = q.select("*", "office_hour_id=" + request.getParameter("id"));
     String dayString = "Sun,Mon,Tue,Wen,Thu,Fri,Sat";
     String[] days = dayString.split(",");
     
@@ -20,7 +20,7 @@ try {
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="css/profilecss.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
         <title>Reservation - Reservations</title>
     </head>
     <body>
@@ -32,8 +32,6 @@ try {
                     <th>To</th> 
                     <th>Day</th>
                     <th>Date</th>
-                    <th>Location</th>
-                    <th>is online?</th>
                     <th>Cancel</th>
                 </tr>
                 <%
@@ -53,8 +51,6 @@ try {
                     <td><%=res.getString("from")%></td>
                     <td><%=res.getString("to")%></td>
                     <td><%=days[res.getInt("day") - 1]%></td>
-                    <td><%=res.getString("location")%></td>
-                    <td><%=res.getString("is_online")%></td>
                     <td><%=res.getString("date")%></td>
                     <td>
                         <button>

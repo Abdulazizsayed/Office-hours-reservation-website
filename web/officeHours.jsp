@@ -17,7 +17,7 @@ try {
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="css/style.css">
+        <link href="css/style.css" rel="stylesheet">
         <title>Reservation - Office hours</title>
     </head>
     <body>
@@ -43,10 +43,28 @@ try {
                         <button>
                             <a href="deleteSlot?id=<%=office_hours.getString("id")%>">Delete</a>
                         </button>
+                        <button>
+                            <a href="slotReservations?id=<%=office_hours.getString("id")%>">View Reservations</a>
+                        </button>
                     </td>
                 </tr>
                 <%}%>
-            </table>
+            </table><br><br>
+            <b>Cancel reservations of specific day: </b><br><br>
+            <form action="cancelSpecific" method="POST">
+                <label>Enter day: </label>
+                <select name="day">
+                    <option value="1">Sunday</option>
+                    <option value="2">Monday</option>
+                    <option value="3">Tuesday</option>
+                    <option value="4">Wednesday</option>
+                    <option value="5">Thursday</option>
+                    <option value="6">Friday</option>
+                    <option value="7">Saturday</option>
+                </select>
+                <br>
+                <button id="submitBtn" type="submit">Cancel</button>
+            </form><br><br>
             <button>
                 <a href="addSlot.jsp">Add new slot</a>
             </button>

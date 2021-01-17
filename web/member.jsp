@@ -30,7 +30,7 @@ try {
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="css/style.css">
+        <link href="css/profilecss.css" rel="stylesheet">
         <title>Reservation - User</title>
     </head>
     <body>
